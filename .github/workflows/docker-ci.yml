@@ -1,8 +1,6 @@
 name: Docker CI Pipeline
 
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build-and-test:
@@ -10,13 +8,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Build Docker image
         run: docker build -t housing-ml-api .
 
-      - name: Run container test
-        run: |
-          docker run -d -p 8000:8000 housing-ml-api
-          sleep 10
-          curl http://localhost:8000/docs
+      - name: Run container
+        run: docker run -d -p 8000:8000 housing-ml-api
+
+      - name: Wait for API
+        run: sleep 15
+
+      - name: Test API
+        run: curl http://localhost:8000/docs
