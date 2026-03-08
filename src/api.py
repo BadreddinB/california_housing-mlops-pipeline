@@ -11,9 +11,20 @@ from pydantic import BaseModel
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-model = joblib.load(os.path.join(BASE_DIR, "models", "model.pkl"))
-scaler = joblib.load(os.path.join(BASE_DIR, "models", "scaler.pkl"))
-features = joblib.load(os.path.join(BASE_DIR, "models", "features.pkl"))
+model_path = os.path.join(BASE_DIR, "models", "model.pkl")
+scaler_path = os.path.join(BASE_DIR, "models", "scaler.pkl")
+features_path = os.path.join(BASE_DIR, "models", "features.pkl")
+
+if os.path.exists(model_path):
+    model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+    features = joblib.load(features_path)
+    print(" Model artifacts loaded")
+else:
+    model = None
+    scaler = None
+    features = None
+    print(" Model artifacts not found — CI mode")
 
 app = FastAPI(title="California Housing Price Prediction API")
 
