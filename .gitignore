@@ -11,6 +11,7 @@ __pycache__/
 # Données & modèles lourds
 models/
 *.pkl
+*.html
 *.joblib
 
 # MLflow
@@ -29,3 +30,6 @@ Thumbs.db
 
 # Schémas d’architecture (livrables jury uniquement)
 MLOps Architecture — Real Estate Price Prediction System.png
+
+# Video
+Swagger_test.mp4
