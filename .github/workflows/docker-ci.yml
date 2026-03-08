@@ -20,4 +20,8 @@ jobs:
         run: sleep 15
 
       - name: Test API
+<<<<<<< HEAD
         run: curl http://localhost:8000/docs
+=======
+        run: curl http://localhost:8000/docs
+>>>>>>> 6034beba98465c4bd4931860fd6b17bb90791988

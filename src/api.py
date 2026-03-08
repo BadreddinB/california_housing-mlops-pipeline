@@ -1,14 +1,19 @@
 import joblib
 import numpy as np
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
+
 
 # ======================
 # Load artifacts
 # ======================
-model = joblib.load("src/models/model.pkl")
-scaler = joblib.load("src/models/scaler.pkl")
-features = joblib.load("src/models/features.pkl")
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model = joblib.load(os.path.join(BASE_DIR, "models", "model.pkl"))
+scaler = joblib.load(os.path.join(BASE_DIR, "models", "scaler.pkl"))
+features = joblib.load(os.path.join(BASE_DIR, "models", "features.pkl"))
 
 app = FastAPI(title="California Housing Price Prediction API")
 
