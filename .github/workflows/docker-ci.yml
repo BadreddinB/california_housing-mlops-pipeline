@@ -14,11 +14,21 @@ jobs:
         run: docker build -t housing-ml-api .
 
       - name: Run container
-        run: docker run -d -p 8000:8000 housing-ml-api
+        run: docker run -d -p 8000:8000 --name api housing-ml-api
 
-      - name: Wait for API
-        run: sleep 15
+      - name: Wait for API to be ready
+        run: |
+          for i in {1..20}; do
+            echo "Waiting for API..."
+            if curl -s http://localhost:8000/docs > /dev/null; then
+              echo "API is up!"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API did not start in time"
+          docker logs api
+          exit 1
 
       - name: Test API
         run: curl -f http://localhost:8000/docs
-
